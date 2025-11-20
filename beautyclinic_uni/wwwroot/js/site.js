@@ -1,4 +1,12 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// سال جاری در فوتر
+document.getElementById('y').textContent = new Date().getFullYear();
 
-// Write your JavaScript code.
+// رفتار فرم (فعلاً نمایشی)
+const form = document.getElementById('contactForm');
+if (form) {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('درخواست شما ثبت شد. به‌زودی با شما تماس می‌گیریم.');
+        form.reset();
+    });
+}
