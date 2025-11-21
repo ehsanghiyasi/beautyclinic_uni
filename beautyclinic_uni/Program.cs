@@ -1,7 +1,17 @@
+﻿using Microsoft.EntityFrameworkCore;
+using YourProjectName.Data; // اسم پروژه خودت رو جایگزین کن
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register DbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Enable Session (future use for login, admin panel, etc.)
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -9,7 +19,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -18,6 +27,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();         // Added
+app.UseAuthentication();  // Added (for future login system)
 app.UseAuthorization();
 
 app.MapControllerRoute(
